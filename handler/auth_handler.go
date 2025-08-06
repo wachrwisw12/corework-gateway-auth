@@ -25,8 +25,8 @@ func LoginHandler(c *fiber.Ctx) error {
 	user, err := services.LoginByUser(body.Username, body.Password)
 	fmt.Println(user, err)
 	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"error": "ไม่สามารถเข้าสู่ระบบได้",
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+			"error": "ชื่อหรือรหัสผ่านไม่ถูกต้อง",
 		})
 	}
 
@@ -42,7 +42,16 @@ func LoginHandler(c *fiber.Ctx) error {
 		})
 	}
 	return c.JSON(fiber.Map{
-		"message": "เข้าสู่ระบบสำเร็จ",
-		"token":   token,
+		"message":     "เข้าสู่ระบบสำเร็จ",
+		"accessToken": token,
+		"user":        user,
+	})
+}
+
+func VertifyToken(c *fiber.Ctx) error {
+	return c.JSON(fiber.Map{
+		"message": "token ผ่าน",
+		// "accessToken" : token,
+		// "user" : user,
 	})
 }

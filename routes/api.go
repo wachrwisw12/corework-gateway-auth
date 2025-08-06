@@ -8,4 +8,5 @@ func SetupRoutes(app *fiber.App) {
 	api := app.Group("/api")
 
 	SetupAuth(api.Group("/v2"))
+	SetupTimeKeeper(api.Group("/v1"))
 }

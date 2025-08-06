@@ -7,4 +7,5 @@ import (
 
 func SetupAuth(auth fiber.Router) {
 	auth.Post("/userlogin", handler.LoginHandler)
+	auth.Post("/verifyToken", handler.VertifyToken)
 }

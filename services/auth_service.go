@@ -2,7 +2,6 @@ package services
 
 import (
 	"database/sql"
-	"errors"
 
 	"github.com/wachrwisw12/corework-gateway-auth/db"
 	"github.com/wachrwisw12/corework-gateway-auth/models"
@@ -30,7 +29,7 @@ func LoginByUser(username string, password string) (*models.User, error) {
 
 	// เปรียบเทียบ password plain กับ bcrypt hash
 	if err := bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password)); err != nil {
-		return nil, errors.New("รหัสผ่านไม่ถูกต้องd")
+		return nil, err
 	}
 
 	return &user, nil
